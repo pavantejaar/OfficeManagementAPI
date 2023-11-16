@@ -9,7 +9,7 @@ using System.Text;
 
 namespace OfficeManagementAPI.Controllers
 {
-    [Route("api/[controller]")]
+    /*[Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -52,5 +52,5 @@ namespace OfficeManagementAPI.Controllers
             }
             return response;
         }
-    }
+    }*/
 }

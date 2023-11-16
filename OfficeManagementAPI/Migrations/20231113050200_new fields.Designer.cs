@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagementAPI.Data;
 
@@ -11,9 +12,11 @@ using OfficeManagementAPI.Data;
 namespace OfficeManagementAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    partial class OfficeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231113050200_new fields")]
+    partial class newfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,27 +24,6 @@ namespace OfficeManagementAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("OfficeManagementAPI.Models.Department", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastUpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Department");
-                });
 
             modelBuilder.Entity("OfficeManagementAPI.Models.Employee", b =>
                 {
@@ -53,9 +35,11 @@ namespace OfficeManagementAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LastUpdatedDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -69,31 +53,6 @@ namespace OfficeManagementAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("OfficeManagementAPI.Models.EmployeeDepartmentAssociation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("EmployeeDepartmentAssociation");
                 });
 
             modelBuilder.Entity("OfficeManagementAPI.Models.Users", b =>
@@ -115,20 +74,6 @@ namespace OfficeManagementAPI.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("OfficeManagementAPI.Models.EmployeeDepartmentAssociation", b =>
-                {
-                    b.HasOne("OfficeManagementAPI.Models.Department", null)
-                        .WithMany("EmployeeAssociations")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OfficeManagementAPI.Models.Department", b =>
-                {
-                    b.Navigation("EmployeeAssociations");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagementAPI.Data;
 
@@ -11,9 +12,11 @@ using OfficeManagementAPI.Data;
 namespace OfficeManagementAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    partial class OfficeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231113070347_new table departments assn")]
+    partial class newtabledepartmentsassn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,6 +81,7 @@ namespace OfficeManagementAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("DepartmentId")
@@ -87,6 +91,7 @@ namespace OfficeManagementAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModifiedOn")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
